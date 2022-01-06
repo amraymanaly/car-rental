@@ -1,6 +1,7 @@
 -- creating tables in the database
 create table IF NOT EXISTS car(
 model varchar(225),
+make varchar(225),
 pricePerDay dec(4, 2),
 `status` varchar(225),
 `year` int,
@@ -15,7 +16,9 @@ create table IF NOT EXISTS reservation(
 reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
-isPaid bit not null, 
+pickUp datetime,
+return datetime,
+paid bit not null, 
 -- price float, -- derived
 primary key (reservationId)
 );
