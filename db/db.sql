@@ -1,13 +1,13 @@
 -- creating tables in the database
 create table IF NOT EXISTS car(
 model varchar(225),
-pricePerDay int,
+pricePerDay dec(4, 2),
 `status` varchar(225),
 `year` int,
-topSpeed int,
+topSpeed_KMperH dec(4, 2),
 color varchar(225),
 plateId int not null,
-carImg varchar(500),
+carImg varchar(500), -- path?
 primary key (plateId) 
 );
 
@@ -16,7 +16,7 @@ reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
 isPaid bit not null, 
-price float, 
+-- price float, -- derived
 primary key (reservationId)
 );
 
@@ -26,7 +26,7 @@ create table IF NOT EXISTS office(
 );
 
 create table IF NOT EXISTS  systemUser(
-userId int not null auto_increment,
+userId int not null, -- specified in ui, like a username
 `password` varchar(225), 
 primary key(userId)
 );
@@ -41,7 +41,7 @@ email varchar(225) not null
 );
 
 create table if not exists `admin`(
-adminId int not null auto_increment,
+adminId int not null,
 primary key(adminId),
 foreign key(adminId) references systemUser(userId) 
 ); 
