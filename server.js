@@ -4,8 +4,10 @@
 // Require Express to run server and routes
 const express = require('express');
 const path = require('path');
-const db = require('db');
+const mysql = require('mysql');
 const app = express();
+
+const db = require("./db/db");
 
 // Security!
 const md5 = require('md5');
@@ -84,7 +86,7 @@ app.post('/welcome', (req, res) => {
 });
 
 // Start Listening
-const port = 8080;
+const port = 3000;
 
 app.listen(port, () => {
     console.log('listening on localhost', port);
