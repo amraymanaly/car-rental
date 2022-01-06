@@ -1,8 +1,27 @@
 {
+  "name": "car-rental",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amraymanaly/car-rental.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amraymanaly/car-rental/issues"
+  },
+  "homepage": "https://github.com/amraymanaly/car-rental#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
     "md5": "^2.3.0",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^4.2.0"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15"
   }
 }
