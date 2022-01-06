@@ -8,7 +8,7 @@ pricePerDay dec(4, 2),
 topSpeed_KMperH dec(4, 2),
 color varchar(225),
 plateId int not null,
-carImg varchar(500), -- path?
+carImg varchar(500), 
 primary key (plateId) 
 );
 
@@ -17,10 +17,9 @@ reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
 pickUp datetime,
-return datetime,
+`return` datetime,
 paid bit not null, 
--- price float, -- derived
-primary key (reservationId)
+primary key (reservationId) 
 );
 
 create table IF NOT EXISTS office(
@@ -29,7 +28,7 @@ create table IF NOT EXISTS office(
 );
 
 create table IF NOT EXISTS  systemUser(
-userId int not null, -- specified in ui, like a username
+userId int not null,
 `password` varchar(225), 
 primary key(userId)
 );

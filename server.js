@@ -52,6 +52,10 @@ function addUser(user) {
 
 app.use('/', express.static(path.join(__dirname, 'website')));
 
+app.get('/',(req,res)=>{
+    res.sendFile('userHome.html');
+})
+
 app.post('/welcome', (req, res) => {
     // console.log('user now:', currentUser);
     console.log('request recieved', req.body);
