@@ -12,7 +12,7 @@ async function enter(action) {
         },
         body: JSON.stringify({
             password: form['password'].value,
-            name: form['username'].value,
+            id: form['username'].value,
             action
         })
     });

@@ -87,13 +87,23 @@ app.post('/welcome', (req, res) => {
     });
 });
 
-app.post('/userReservations', (req, res) => {
-    // return await db.query('select ')
+app.post('/customerHome', (req, res) => {
+    // customer, show own reservations
+    return await db.query(`select * from reservation where customerId=${currentUser.name}`)
 });
 
-app.post('/adminPanel', (req, res) => {
-    // return everything
-});
+app.post('/adminHome', (req, res) => {
+    // admin, show everything
+    return {
+        cars: await db.query('select * from car;'),
+        customers: await db.query('select * from customer;'),
+        reservation: await db.query('select * from reservation;')
+    };
+})
+
+app.post('/searchForACar', (req, res) => {
+    // use search paramters to select cars
+})
 
 app.post('/store', (req, res) => {
     return await db.query('select * from car;');
