@@ -11,9 +11,8 @@ async function enter(action) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: form['email'].value,
             password: form['password'].value,
-            name: form['name'].value,
+            name: form['username'].value,
             action
         })
     });
@@ -30,15 +29,7 @@ function register() {
 }
 
 function validate() {
-    let email = form['email'].value;
-    let pass = form['password'].value;
-
-    if (!/^[0-9a-zA-Z_]+@[0-9a-zA-Z_]+\.[0-9a-zA-Z_]+/.test(email)) {
-        alert('email is not valid!');
-        return false;
-    }
-    
-    if (!/^.+/.test(pass)) {
+    if (!/^.+/.test(form['password'].value)) {
         alert('password is empty!');
         return false;
     }
