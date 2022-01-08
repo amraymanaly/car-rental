@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS=0;
+
 insert into customer(firstName,lastName,Email) values ('khaled','gamal','khaledgamal@gmail.com');
 insert into customer(firstName,lastName,Email) values ('mazen','abouelhassan','mazenabouelhassan@gmail.com');
 insert into customer(firstName,lastName,Email) values ('amr','ayman','amrayman@gmail.com');
@@ -15,4 +17,11 @@ insert into office (country) values ('usa');
 insert into office (country) values ('germany');
 insert into office (country) values ('russia');
 
+insert into systemUser values (5, 'amr');
 
+insert into reservation values (3, CURRENT_DATE(), CURRENT_DATE(), CURRENT_DATE(), CURRENT_DATE(), 1);
+
+insert into reserved values (5, 3);
+
+
+SET FOREIGN_KEY_CHECKS=1;

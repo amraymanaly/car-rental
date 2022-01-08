@@ -4,9 +4,7 @@
 // Require Express to run server and routes
 const express = require('express');
 const path = require('path');
-const mysql = require('mysql');
 const app = express();
-
 const db = require("./db/db");
 
 // Security!
@@ -27,35 +25,34 @@ app.use(bodyParser.json());
 let currentUser = null;
 let status = null;
 
-async function checkDB(user) { // returns [<email found>, <user if password matches>]
+async function checkDB(user) { // returns [<id found?>, <user if password matches>]
     // console.log('checking for', user);
-    const row = await db.get('select email, name, password from user where email = ?', user.email);
-    let result = [];
+    row = null;
+    try {
+        row = (await db.query('select userId, password from systemUser where userId = ' + db.escape(user.id)))[0];
+    } catch { };
 
     if (row) {
-        result.push(true);
-        if (row.password == md5(user.password))
-            result.push(row);
-        else
-            result.push(null);
-    } else result = [false, null];
+        if (row.password == md5(user.password)) return [true, row];
+        return [true, null];
+    }
 
-    return result;
+    return [false, null];
 }
 
 function addUser(user) {
-    db.run("insert into user (email, name, password) values (?,?,?)",
-        user.email, user.name, md5(user.password));
+    return db.query(`insert into systemUser (userId, password) values (${db.escape(user.id)},${db.escape(md5(user.password))})`);
 }
 
 // Setup server routes
 
 app.use('/', express.static(path.join(__dirname, 'website')));
 
-app.get('/',(req,res)=>{
-    res.sendFile('userHome.html');
-})
+// app.get('/',(req,res)=>{
+//     res.sendFile('userHome.html');
+// })
 
+// for logging in and registeration
 app.post('/welcome', (req, res) => {
     // console.log('user now:', currentUser);
     console.log('request recieved', req.body);
@@ -67,13 +64,14 @@ app.post('/welcome', (req, res) => {
             if (currentUser) {
                 status = 'old user';
             } else {
-                status = 'Email and/or password is/are incorrect!';
+                status = 'Id and/or password is/are incorrect!';
             }
         } else { // register new user
             if (indb[0]) {
-                status = 'Email already registered!';
+                status = 'Id already registered!';
                 currentUser = null;
             } else {
+                //FIXME: add user info
                 addUser(user);
                 currentUser = user;
                 status = 'new user';
@@ -87,6 +85,18 @@ app.post('/welcome', (req, res) => {
         } else
             res.send({resp: status});
     });
+});
+
+app.post('/userReservations', (req, res) => {
+    // return await db.query('select ')
+});
+
+app.post('/adminPanel', (req, res) => {
+    // return everything
+});
+
+app.post('/store', (req, res) => {
+    return await db.query('select * from car;');
 });
 
 // Start Listening
