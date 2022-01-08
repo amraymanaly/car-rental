@@ -1,4 +1,5 @@
 -- creating tables in the database
+SET FOREIGN_KEY_CHECKS=0;
 create table IF NOT EXISTS car(
 plateId int not null,
 countryOfOrigin varchar(225),
@@ -18,13 +19,12 @@ create table IF NOT EXISTS reservation(
 reservedPlateId int not null,
 customerId varchar(225) not null,
 reservationId int not null auto_increment,
-
 startDate datetime,
 endDate datetime,
 isPaid bit not null, 
 primary key (reservationId),
 foreign key (reservedPlateId) references car(plateId),
-foreign key (customerId) references customer(customerId),
+foreign key (customerId) references customer(customerId)
 );
 
 create table IF NOT EXISTS office(
@@ -52,3 +52,4 @@ primary key(adminId),
 foreign key(adminId) references systemUser(userId) 
 ); 
 
+SET FOREIGN_KEY_CHECKS=1;
