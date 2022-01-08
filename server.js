@@ -29,7 +29,7 @@ async function checkDB(user) { // returns [<id found?>, <user if password matche
     // console.log('checking for', user);
     row = null;
     try {
-        row = (await db.query('select userId, password from systemUser where userId = ' + db.escape(user.id)))[0];
+        row = (await db.query(`select userId, password from systemUser where userId = ${db.escape(user.userId)}`))[0];
     } catch { };
 
     if (row) {
@@ -41,7 +41,7 @@ async function checkDB(user) { // returns [<id found?>, <user if password matche
 }
 
 function addUser(user) {
-    return db.query(`insert into systemUser (userId, password) values (${db.escape(user.id)},${db.escape(md5(user.password))})`);
+    return db.query(`insert into systemUser (userId, password) values (${db.escape(user.userId)},${db.escape(md5(user.password))})`);
 }
 
 // Setup server routes
@@ -80,8 +80,8 @@ app.post('/welcome', (req, res) => {
 
         if (currentUser) {
             console.log('result:', currentUser, status);
-            res.send({resp: `Welcome ${currentUser.id}!`});
-            // res.render('index', {user: (currentUser ? currentUser.id : null)});
+            res.send({resp: `Welcome ${currentUser.userId}!`});
+            // res.render('index', {user: (currentUser ? currentUser.userId : null)});
         } else
             res.send({resp: status});
     });
@@ -89,7 +89,7 @@ app.post('/welcome', (req, res) => {
 
 app.post('/customerHome', async (req, res) => {
     // customer, show own reservations
-    return await db.query(`select * from reservation where customerId=${currentUser.id}`)
+    return await db.query(`select * from reservation where customerId=${currentUser.userId}`);
 });
 
 app.post('/adminHome', async (req, res) => {
