@@ -80,32 +80,32 @@ app.post('/welcome', (req, res) => {
 
         if (currentUser) {
             console.log('result:', currentUser, status);
-            res.send({resp: `Welcome ${currentUser.name}!`});
-            // res.render('index', {user: (currentUser ? currentUser.name : null)});
+            res.send({resp: `Welcome ${currentUser.id}!`});
+            // res.render('index', {user: (currentUser ? currentUser.id : null)});
         } else
             res.send({resp: status});
     });
 });
 
-app.post('/customerHome', (req, res) => {
+app.post('/customerHome', async (req, res) => {
     // customer, show own reservations
-    return await db.query(`select * from reservation where customerId=${currentUser.name}`)
+    return await db.query(`select * from reservation where customerId=${currentUser.id}`)
 });
 
-app.post('/adminHome', (req, res) => {
+app.post('/adminHome', async (req, res) => {
     // admin, show everything
     return {
         cars: await db.query('select * from car;'),
         customers: await db.query('select * from customer;'),
         reservation: await db.query('select * from reservation;')
     };
-})
+});
 
-app.post('/searchForACar', (req, res) => {
+app.post('/searchForACar', async (req, res) => {
     // use search paramters to select cars
-})
+});
 
-app.post('/store', (req, res) => {
+app.post('/store', async (req, res) => {
     return await db.query('select * from car;');
 });
 
