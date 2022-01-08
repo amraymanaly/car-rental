@@ -15,4 +15,9 @@ const md5 = require('md5');
 
 })();
 
+var f = async () => {
+    rest = await db.query('select * from systemUser;');
+    console.log(rest);
+}
 
+f();
