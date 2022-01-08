@@ -16,13 +16,12 @@ foreign key(countryOfOrigin) references office(country)
 
 create table IF NOT EXISTS reservation(
 reservedPlateId int not null,
-customerId int not null,
-customerEmail varchar(225) not null,
+customerId varchar(225) not null,
 reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
 isPaid bit not null, 
-primary key (reservedPlateId,customerId) ,
+primary key (reservationId),
 foreign key (reservedPlateId) references car(plateId),
 foreign key (customerId) references customer(customerId),
 );
@@ -33,22 +32,21 @@ create table IF NOT EXISTS office(
 );
 
 create table IF NOT EXISTS  systemUser(
-userId int not null,
+userId varchar(225) not null,
 `password` varchar(225), 
 primary key(userId)
 );
 
 create table IF NOT EXISTS customer(    /*Weak entity from systemUser*/
-customerId int not null auto_increment,
+customerId varchar(225) not null,
 firstName varchar(225) not null,
 lastName varchar(225) not null,
-email varchar(225) not null,
 primary key (customerId),
 foreign key(customerId) references systemUser(userId)
 );
 
 create table if not exists `admin`( /*Weak entity from systemUser*/
-adminId int not null,
+adminId varchar(225) not null,
 primary key(adminId),
 foreign key(adminId) references systemUser(userId) 
 ); 
