@@ -1,17 +1,17 @@
 -- creating tables in the database
 create table IF NOT EXISTS car(
 plateId int not null,
-carCountry varchar(225),
+countryOfOrigin varchar(225),
 `year` int,
 `status` varchar(225),
 make varchar(225),
 model varchar(225),
-pricePerDay dec(4, 2),
-topSpeed_KMperH dec(4, 2),
+pricePerDay dec(5, 2),
+topSpeed_KMperH dec(6, 2),
 color varchar(225),
-carImg varchar(500), 
+`image` varchar(500), 
 primary key (plateId),
-foreign key(carCountry) references office(country)
+foreign key(countryOfOrigin) references office(country)
 );
 
 create table IF NOT EXISTS reservation(
@@ -22,9 +22,9 @@ reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
 isPaid bit not null, 
-primary key (reservedPlateId,customerId,customerEmail) ,
+primary key (reservedPlateId,customerId) ,
 foreign key (reservedPlateId) references car(plateId),
-foreign key (customerId,customerEmail) references customer(customerId,email),
+foreign key (customerId) references customer(customerId),
 );
 
 create table IF NOT EXISTS office(
@@ -43,7 +43,7 @@ customerId int not null auto_increment,
 firstName varchar(225) not null,
 lastName varchar(225) not null,
 email varchar(225) not null,
-primary key (customerId,email),
+primary key (customerId),
 foreign key(customerId) references systemUser(userId)
 );
 
