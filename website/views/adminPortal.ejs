@@ -108,30 +108,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% console.log('hello') %>
-                        <% reservations.forEach(reservation=> { %>
-                            <% console.log(reservation); %>
-                                <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
-                                    <td>
-                                        <%= reservation.reservationId %>
-                                    </td>
-                                    <td>
-                                        <%= reservation.startDate %>
-                                    </td>
-                                    <td>
-                                        <%= reservation.endDate %>
-                                    </td>
-                                    <td>
-                                        <%= reservation.totalPrice %>
-                                    </td>
-                                    <td>
-                                        <%= reservation.customerId %>
-                                    </td>
-                                    <td>
-                                        <%= reservation.plateId %>
-                                    </td>
-                                </tr>
-                                <% }) %>
+                    <% reservations.forEach(reservation=> { %>
+                        <% console.log(reservation); %>
+                        <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
+                                <td>
+                                    <%= reservation.reservationId %>
+                                </td>
+                                <td>
+                                    <%= reservation.startDate %>
+                                </td>
+                                <td>
+                                    <%= reservation.endDate %>
+                                </td>
+                                <td><%= reservation.totalPrice %></td>
+                                <td>
+                                    <%= reservation.customerId %>
+                                </td>
+                                <td>
+                                    <%= reservation.plateId %>
+                                </td>
+                        </tr>
+                        <% }) %>
                 </tbody>
             </table>
         </div>

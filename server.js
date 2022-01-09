@@ -1,88 +1,81 @@
-// FIXME: use db correctly
-
-
-// Require Express to run server and routes
 const express = require('express');
 const path = require('path');
 const app = express();
 const db = require("./db/db");
-
-// Security!
 const md5 = require('md5');
 
-// Set EJS as templating engine
+// housekeeping
 app.set('views', path.join(__dirname, 'website', 'views'));
 app.set('view engine', 'ejs');
 
-// Housekeeping
 const bodyParser = require('body-parser');
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Begin!
 
-// initializing global variables...
 let currentUser = {admin: false};
 
-async function checkDB(user) { // returns [<id found?>, <user if password matches>]
-    // console.log('checking for', user);
-    row = null;
-    try {
-        row = (await db.query(`select userId, password from systemUser where userId = ${db.escape(user.userId)}`))[0];
-    } catch { };
+async function checkDB(user) {
+    // returns: null if id doesn't match
+    //          false if id matches but not password
+    //          true if all is good
 
-    if (row) {
-        if (row.password == md5(user.password)) return [true, row];
-        return [true, null];
-    }
+    let q = await db.query(`select userId, password from systemUser where userId = ${db.escape(user.userId)}`)
+    
+    if (q.length != 1) return null;
 
-    return [false, null];
+    return q[0].password === md5(user.password);
 }
 
-function addUser(user) {
-    return db.query(`insert into systemUser (userId, password) values (${db.escape(user.userId)},${db.escape(md5(user.password))})`);
+async function addUser(user) {
+    // validation checks
+    if (/^\s*$/.test(user.password)) // empty password
+        return 'Password is empty';
+
+    // all good!
+    await db.query(`insert into systemUser (userId, password) values
+    (${db.escape(user.userId)}, ${db.escape(md5(user.password))})`);
+
+    await db.query(`insert into customer (customerId, firstName, lastName) values
+    (${db.escape(user.userId)}, ${db.escape(user.firstName)}, ${db.escape(user.lastName)})`);
+
+    return false;
 }
 
 // Setup server routes
 
 app.use('/', express.static(path.join(__dirname, 'website')));
 
-// for logging in and registeration
-app.post('/welcome', (req, res) => {
-    // console.log('user now:', currentUser);
-    console.log('request recieved', req.body);
+app.post('/login', (req, res) => {
+    currentUser = null;
     let user = req.body;
-    currentUser.admin = false;
-    checkDB(user).then( indb => {
-        if (req.body.action == 'login') {
-            currentUser = indb[1];
-            // console.log(indb);
-            msg = currentUser ? 'logged in' : 'Id and/or password is/are incorrect!';
-            if (currentUser) {
-                db.query(`select * from admin where adminId = ${db.escape(currentUser.userId)};`)
-                .then(q => {
-                    currentUser.admin = q.length === 1;
-                    res.send({enter: true, admin: currentUser.admin});
-                });
-                return false;
-            }
-        } else { // register new user
-            if (indb[0]) {
-                msg = 'Id already registered!';
-                currentUser = null;
-            } else {
-                //FIXME: add user info
-                addUser(user);
-                currentUser = user;
-                msg = 'registered';
-            }
-        }
-        return true;
-    })
-    .then(a => {
-        if (!a) return;
-        res.send({enter: false, msg});
+    checkDB(user).then(dbRes => {
+        if (!dbRes)
+            return res.send({enter: false, msg: dbRes == null ? 'User does not exist' : 'Wrong Password'});
+        
+        currentUser = user;
+        db.query(`select * from admin where adminId = ${db.escape(currentUser.userId)};`)
+        .then(q => {
+            currentUser.admin = q.length == 1;
+            res.send({enter: true, admin: currentUser.admin});
+        });
+    });
+});
+
+app.post('/register', (req, res) => {
+    currentUser = null;
+    let user = req.body;
+    console.log('recieved registration request:', user);
+    checkDB(user).then(async dbRes => {
+        if (dbRes)
+            return res.send({enter: false, msg: 'User already registered'});
+        
+        let add = await addUser(user);
+        if (add)
+            return res.send({enter: false, msg: add});
+
+        currentUser = user;
+        res.send({enter: true});
     });
 });
 
@@ -92,20 +85,15 @@ app.get('/customerHome', async (req, res) => {
 });
 
 app.get('/adminPortal', async (req, res) => {
-    if (!currentUser.admin) {
-        res.send('unauthorized access');
-        return;
-    }
+    if (!currentUser.admin)
+        return res.status(401).send('unauthorized access');
+
     // admin, show everything
     res.render('adminPortal', {
         cars: await getAllCars(),
         customers: await getAllCustomers(),
         reservations: await getAllReservations()
     });
-});
-
-app.post('/searchForACar', async (req, res) => {
-    // use search paramters to select cars
 });
 
 app.get('/store', async (req, res) => {
