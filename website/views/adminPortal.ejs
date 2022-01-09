@@ -146,56 +146,55 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form name="addCar">
                         <div class="mb-3">
                             <label class="form-label">Plate ID</label>
-                            <input type="text" class="form-control" id="plate_id" name="plateID"
+                            <input type="text" class="form-control" name="plate_id"
                                 placeholder="e.g: 5000" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Office location</label> <!-- country of orignin in DB-->
-                            <input type="text" class="form-control" id="office" name="Office"
+                            <input type="text" class="form-control" name="countruOfOrigin"
                                 placeholder="e.g: Egypt" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">year</label>
-                            <input type="text" class="form-control" id="year" name="year" placeholder="e.g: 1999" />
+                            <input type="text" class="form-control" name="year" placeholder="e.g: 1999" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <!--Availabe by default -->
-                            <input type="text" class="form-control" id="status" name="status"
+                            <input type="text" class="form-control" name="status"
                                 placeholder="default: Available" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Make</label>
-                            <input type="text" class="form-control" id="make" name="make" placeholder="e.g: Nissan" />
+                            <input type="text" class="form-control" name="make" placeholder="e.g: Nissan" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" placeholder="e.g: Sunny" />
+                            <input type="text" class="form-control"  name="model" placeholder="e.g: Sunny" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Price/day</label>
-                            <input type="text" class="form-control" id="price_per_day" name="price_per_day"
-                                placeholder="e.g: 150 LE/day" />
+                            <input type="text" class="form-control" name="pricePerDay" placeholder="e.g: 150 LE/day" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Top speed(km/hr)</label>
-                            <input type="text" class="form-control" id="top_Speed" name="top_Speed"
+                            <input type="text" class="form-control" name="topSpeed_KMperH"
                                 placeholder="e.g: 250 km/hr" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" placeholder="e.g: Black" />
+                            <input type="text" class="form-control" name="color" placeholder="e.g: Black" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Image(URL)</label>
-                            <input type="text" class="form-control" id="image" name="image"
+                            <input type="text" class="form-control" name="image"
                                 placeholder="e.g: shorturl.at/tBEFN" />
                         </div>
                         <div class="modal-footer d-block">
-                            <button type="submit" class="btn btn-success float-end">Add</button>
+                            <button type="button" class="btn btn-success float-end" onclick="ay()">Add</button>
                         </div>
                     </form>
                 </div>
@@ -256,8 +255,7 @@
             </div>
         </div>
     </div>
-</body>
-
+    <script src="../scripts/adminPortal.js" type="text/javascript"></script>
 <script src="scripts/navbar.js"></script>
 
 
