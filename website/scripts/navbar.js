@@ -1,7 +1,7 @@
 const logoutBtn = document.getElementById('logoutBtn');
 
-logoutBtn.addEventListener('click', () => {
-    await fetch(`${route}`, {
+logoutBtn.addEventListener('click', async () => {
+    await fetch('/logout', {
         method: 'POST',
         credentials: 'same-origin'
     });
