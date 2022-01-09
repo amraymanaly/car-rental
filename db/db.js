@@ -5,7 +5,7 @@ const util = require('util');
 const db = mysql.createConnection({
     connectionLimit:10,
     host:'localhost',
-    user:'tinker', // my username
+    user:'root', // my username
     password:'', // my password; change to fit ur local setup
     database:'car_rental'
 });

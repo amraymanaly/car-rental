@@ -9,30 +9,10 @@
 </head>
 
 <body>
-    <div class="container align-items-left">
-        <div class="col-lg-8 height d-flex justify-content-center align-items-center">
-            <div class="col-lg-8">
-                <div class="search">
-                    <i class="fa fa-search"></i>
-                    <input type="text" class="form-control" placeholder="Search">
-                    <button class="btn btn-primary">Search</button>
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                        Search by
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Car details</a></li>
-                        <li><a class="dropdown-item" href="#">Customer details</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
     <div class="container-fluid row">
         <div class="col-md-3">
             <h1>Customer info</h1>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Firstname</th>
@@ -51,7 +31,7 @@
         </div>
         <div class="col-md-5">
             <h1>Car info</h1>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Plate id</th>
@@ -64,7 +44,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr  data-bs-toggle="modal"
+                    data-bs-target="#modalForm2">
                         <td>1234</td>
                         <td>2020</td>
                         <td>Available</td>
@@ -78,7 +59,7 @@
         </div>
         <div class="col-md-4">
             <h1>Reservations</h1>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Res ID</th>
@@ -105,7 +86,7 @@
     </div>
     <!-- Click on Modal Button -->
 
-    <button type="button" class="btn btn-primary mx-auto d-block mt-5" data-bs-toggle="modal"
+    <button type="button" class="btn btn-primary mx-auto d-block mt-5 footer" data-bs-toggle="modal"
         data-bs-target="#modalForm1">
         Add new car
     </button>
@@ -168,34 +149,40 @@
                                 placeholder="e.g: shorturl.at/tBEFN" />
                         </div>
                         <div class="modal-footer d-block">
-                            <button type="submit" class="btn btn-warning float-end">Add</button>
+                            <button type="submit" class="btn btn-success float-end">Add</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Click on Modal Button -->
-    <button type="button" class="btn btn-primary mx-auto d-block mt-5" data-bs-toggle="modal"
-        data-bs-target="#modalForm2">
-       Delete a car
-    </button>
-
-    <!-- Modal -->
+    <!--This form will appear when pressing on a table row-->
     <div class="modal fade" id="modalForm2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Car deletion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete the car?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-danger float-end">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Car status</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
                         <div class="mb-3">
-                            <label class="form-label">Email Address</label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Username" />
+                            <label class="form-label">Car status</label>
+                            <input type="text" class="form-control" id="car_update" name="car_update"
+                                placeholder="e.g: Available" />
+                        </div>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-warning float-end">Update</button>
                         </div>
                     </form>
                 </div>
