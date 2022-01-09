@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Admin</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row height d-flex justify-content-center align-items-center">
+            <div class="col-md-8">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-mdb-toggle="dropdown" aria-expanded="false">
+                        Search by
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item">Car details</a>
+                        <a class="dropdown-item">Customer details</a>
+                    </div>
+                </div>
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Search">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container mt-3">
+        <h1>Results</h1>            
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Firstname</th>    <!--the results will be added here-->
+              <th>Lastname</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</body>
+
+
+
+
+
+</html>
