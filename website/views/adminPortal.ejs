@@ -9,6 +9,19 @@
 </head>
 
 <body>
+    <div class="row gap-3">
+        <nav class="navbar navbar-light bg-dark gap-3 mx-auto">
+            <div class="col-md-3">
+                <a href="#login" class="btn btn-primary mx-auto" role="button">logout</a>
+                <button type="button" class="btn btn-primary mx-auto " data-bs-toggle="modal"
+                    data-bs-target="#carAdd">
+                    Add new car
+                </button>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </nav>
+    </div>
     <div class="container-fluid">
         <div class="align center">
             <h1>Customer info</h1>
@@ -22,18 +35,18 @@
                 </thead>
                 <tbody>
                     <% customers.forEach(customer=> { %>
-                            <tr>
-                                <td>
-                                    <%= customer.firstName%>
-                                </td>
-                                <td>
-                                    <%= customer.lastName %>
-                                </td>
-                                <td>
-                                    <%= customer.customerId %>
-                                </td>
-                            </tr>
-                            <% }) %>
+                        <tr>
+                            <td>
+                                <%= customer.firstName%>
+                            </td>
+                            <td>
+                                <%= customer.lastName %>
+                            </td>
+                            <td>
+                                <%= customer.customerId %>
+                            </td>
+                        </tr>
+                        <% }) %>
                 </tbody>
             </table>
         </div>
@@ -96,37 +109,36 @@
                 </thead>
                 <tbody>
                     <% console.log('hello') %>
-                    <% reservations.forEach(reservation=> { %>
-                        <% console.log(reservation); %>
-                        <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
-                                <td>
-                                    <%= reservation.reservationId %>
-                                </td>
-                                <td>
-                                    <%= reservation.startDate %>
-                                </td>
-                                <td>
-                                    <%= reservation.endDate %>
-                                </td>
-                                <td><%= reservation.totalPrice %></td>
-                                <td>
-                                    <%= reservation.customerId %>
-                                </td>
-                                <td>
-                                    <%= reservation.plateId %>
-                                </td>
-                        </tr>
-                        <% }) %>
+                        <% reservations.forEach(reservation=> { %>
+                            <% console.log(reservation); %>
+                                <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
+                                    <td>
+                                        <%= reservation.reservationId %>
+                                    </td>
+                                    <td>
+                                        <%= reservation.startDate %>
+                                    </td>
+                                    <td>
+                                        <%= reservation.endDate %>
+                                    </td>
+                                    <td>
+                                        <%= reservation.totalPrice %>
+                                    </td>
+                                    <td>
+                                        <%= reservation.customerId %>
+                                    </td>
+                                    <td>
+                                        <%= reservation.plateId %>
+                                    </td>
+                                </tr>
+                                <% }) %>
                 </tbody>
             </table>
         </div>
     </div>
     <!-- Click on Modal Button -->
 
-    <button type="button" class="btn btn-primary mx-auto d-block mt-5 footer" data-bs-toggle="modal"
-        data-bs-target="#carAdd">
-        Add new car
-    </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="carAdd" tabindex="-1" aria-labelledby="carAddLabel" aria-hidden="true">
@@ -205,7 +217,7 @@
                 <div class="modal-body">
                     <form>
                         <!-- <div class="modal-footer d-block"> -->
-                            <button type="submit" class="btn btn-danger float-end">Delete</button>
+                        <button type="submit" class="btn btn-danger float-end">Delete</button>
                         <!-- </div> -->
                     </form>
                 </div>
@@ -220,7 +232,7 @@
                                 placeholder="e.g: Available" />
                         </div>
                         <!-- <div class="modal-footer d-block"> -->
-                            <button type="submit" class="btn btn-warning float-end">Update</button>
+                        <button type="submit" class="btn btn-warning float-end">Update</button>
                         <!-- </div> -->
                     </form>
                 </div>
@@ -240,7 +252,7 @@
                 <div class="modal-body">
                     <form>
                         <!-- <div class="modal-footer d-block"> -->
-                            <button type="submit" class="btn btn-danger float-end">Delete</button>
+                        <button type="submit" class="btn btn-danger float-end">Delete</button>
                         <!-- </div> -->
                     </form>
                 </div>
