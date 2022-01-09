@@ -21,14 +21,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% customers.forEach(customer => { %>
+                    <% customers.forEach(customer=> { %>
                         <% console.log('customer:', customer.firstName); %>
-                        <tr>
-                        <td><%= customer.firstName%></td>
-                        <td><%= customer.lastName %></td>
-                        <td><%= customer.customerId %></td>
-                        </tr>
-                    <% }) %>
+                            <tr>
+                                <td>
+                                    <%= customer.firstName%>
+                                </td>
+                                <td>
+                                    <%= customer.lastName %>
+                                </td>
+                                <td>
+                                    <%= customer.customerId %>
+                                </td>
+                            </tr>
+                            <% }) %>
                 </tbody>
             </table>
         </div>
@@ -47,18 +53,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% cars.forEach(car => { %>
-                        <tr data-bs-toggle="modal"
-                        data-bs-target="#modalForm2">
-                            <td><%= car.plateId %></td>
-                            <td><%= car.year %></td>
-                            <td><%= car.status %></td>
-                            <td><%= car.make %></td>
-                            <td><%= car.pricePerDay %></td>
-                            <td><%= car.topSpeed_KMperH %></td>
-                            <td><%= car.color %></td>                            
+                    <% cars.forEach(car=> { %>
+                        <tr data-bs-toggle="modal" data-bs-target="#CarDeleteUpdate">
+                            <td>
+                                <%= car.plateId %>
+                            </td>
+                            <td>
+                                <%= car.year %>
+                            </td>
+                            <td>
+                                <%= car.status %>
+                            </td>
+                            <td>
+                                <%= car.make %>
+                            </td>
+                            <td>
+                                <%= car.pricePerDay %>
+                            </td>
+                            <td>
+                                <%= car.topSpeed_KMperH %>
+                            </td>
+                            <td>
+                                <%= car.color %>
+                            </td>
                         </tr>
-                        <% }) %>    
+                        <% }) %>
                 </tbody>
             </table>
         </div>
@@ -77,20 +96,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <% reservations.forEach(reservation => { %>
-                            <% found = undefined; cars.forEach(car => {
+                    <% reservations.forEach(reservation=> { %>
+                        <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
+                            <% found=undefined; cars.forEach(car=> {
                                 if (car.plateId === reservation.reservedPlateId)
-                                    found = car
-                            }); %>
-                            <td><%= reservation.reservationId %></td>
-                            <td><%= reservation.startDate %></td>
-                            <td><%= reservation.endDate %></td>
-                            <td>placeholder</td> <!-- will be a view, a virtual column -->
-                            <td><%= reservation.customerId %></td>
-                            <td><%= reservation.plateId %></td>                            
-                        <% }) %>  
-                    </tr>
+                                found = car
+                                }); %>
+                                <td>
+                                    <%= reservation.reservationId %>
+                                </td>
+                                <td>
+                                    <%= reservation.startDate %>
+                                </td>
+                                <td>
+                                    <%= reservation.endDate %>
+                                </td>
+                                <td>placeholder</td> <!-- will be a view, a virtual column -->
+                                <td>
+                                    <%= reservation.customerId %>
+                                </td>
+                                <td>
+                                    <%= reservation.plateId %>
+                                </td>
+                        </tr>
+                        <% }) %>
                 </tbody>
             </table>
         </div>
@@ -98,16 +127,16 @@
     <!-- Click on Modal Button -->
 
     <button type="button" class="btn btn-primary mx-auto d-block mt-5 footer" data-bs-toggle="modal"
-        data-bs-target="#modalForm1">
+        data-bs-target="#carAdd">
         Add new car
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalForm1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="carAdd" tabindex="-1" aria-labelledby="carAddLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New car information</h5>
+                    <h5 class="modal-title" id="carAddLabel">New car information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -167,12 +196,13 @@
             </div>
         </div>
     </div>
+
     <!--This form will appear when pressing on a table row-->
-    <div class="modal fade" id="modalForm2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="CarDeleteUpdate" tabindex="-1" aria-labelledby="CarDel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete the car?</h5>
+                    <h5 class="modal-title" id="CarDel">Delete the car?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -183,7 +213,7 @@
                     </form>
                 </div>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Car status</h5>
+                    <h5 class="modal-title" id="CarDel">Update Car status</h5>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -194,6 +224,26 @@
                         </div>
                         <div class="modal-footer d-block">
                             <button type="submit" class="btn btn-warning float-end">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Reservation delete pop-up-->
+    <div class="modal fade" id="ReservationDeleteForm" tabindex="-1" aria-labelledby="DeleteRes" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteRes">Delete the reservation?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-danger float-end">Delete</button>
                         </div>
                     </form>
                 </div>
