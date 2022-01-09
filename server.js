@@ -105,7 +105,19 @@ app.post('/addCar', (req, res) => {
     });
 });
 
+app.post('/deleteCar', (req, res) => {
+    db.query(`delete from car where plateId = ${db.escape(req.body.id)};`);
+});
 
+app.post('/deleteReservation', (req, res) => {
+    console.log('got id:', req.body.id);
+    db.query(`delete from reservation where reservationId = ${db.escape(req.body.id)};`);
+});
+
+app.post('/updateCarStatus', (req, res) => {
+    console.log(req);
+    db.query(`update car set \`status\` = ${db.escape(req.body.status)} where plateId = ${db.escape(req.body.id)};`);
+});
 
 app.get('/customerHome', async (req, res) => {
     // customer, show own reservations

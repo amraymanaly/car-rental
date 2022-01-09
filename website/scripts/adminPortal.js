@@ -25,8 +25,52 @@ async function ay() {
         console.log('Car added'); // TODO: inform user
     else
         console.log('Failed to add car:', resp.msg);
+    
+    $('#btnCloseCreateCar').click();
 }
 
-document.getElementById('tbbb').addEventListener('click', (evt) => {
-    clicked = evt.target;
-});
+for (let table of document.getElementsByTagName('table'))
+    table.addEventListener('click', (evt) => {
+        clicked = evt.target.parentElement;
+    });
+
+function deleteCar() {
+    fetch('/deleteCar', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('plateId')[0].textContent})
+    });
+
+    $('#btnCloseDeleteCar').click();
+}
+
+function deleteReservation() {
+    console.log('in here');
+    fetch('/deleteReservation', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('reservationId')[0].textContent})
+    });
+
+    $('#btnCloseDeleteReservation').click();
+}
+
+function updateStatus() {
+    fetch('/updateCarStatus', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('plateId')[0].textContent,
+        status: document.forms['what']['car_update'].value})
+    });
+
+    $('#btnCloseDeleteCar').click();
+}
