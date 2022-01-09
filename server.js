@@ -100,6 +100,10 @@ app.get('/store', async (req, res) => {
     res.render('store', {cars: await getAllCars()});
 });
 
+app.get('/logout', (req, res) => {
+    currentUser = null;
+});
+
 // some common queries, FIXME: change them to views later...
 
 function getAllCars() {
