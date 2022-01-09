@@ -12,12 +12,15 @@
     <!--<script src="https://code.jquery.com/jquery-3.5.0.js"></script>-->
 </head>
 
-<body>
+<body class="bg-dark">
     <div class="row gap-3">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light gap-3">
-            <a href="#login" class="btn btn-primary col-md-1" role="button">logout</a>
-            <!--<a href="#login" class="col-md-2">logout</a>-->
-            <a href="/reservations" class="btn btn-primary col-md-1" role="button">reservations</a>
+        <nav class="navbar  navbar-light bg-light gap-3">
+            <div class="align-left " >
+            <a href="#login" class="btn btn-primary " role="button">logout</a>
+            <a href="/reservations" class="btn btn-primary" role="button">reservations</a>
+            
+            </div>
+        
             <div class="col-md-3">
                 <div class="input-group ">
                     <input type="text" class="form-control" placeholder="Search.." name="search">
@@ -27,7 +30,7 @@
         </nav>
     </div>
 
-    <div class="row gap-3">
+    <div class="row gap-3 mt-2 ml-2">
         <% cars.forEach(car=> { %>
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src=<%=car.image %> alt="Card image cap">
