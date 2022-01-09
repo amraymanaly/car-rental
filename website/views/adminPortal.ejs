@@ -1,264 +1,364 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Admin</title>
-</head>
 
-<body>
+    <title>Admin</title>
+  </head>
+
+  <body>
     <div class="row gap-3">
-        <nav class="navbar navbar-light bg-dark gap-3 mx-auto">
-            <div class="col-md-3">
-                <a id="logoutBtn" class="btn btn-primary mx-auto" role="button">logout</a>
-                <button type="button" class="btn btn-primary mx-auto " data-bs-toggle="modal"
-                    data-bs-target="#carAdd">
-                    Add new car
-                </button>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </nav>
+      <nav class="navbar navbar-light bg-dark gap-3 mx-auto">
+        <div class="col-md-3">
+          <a id="logoutBtn" class="btn btn-primary mx-auto" role="button"
+            >logout</a
+          >
+          <button
+            type="button"
+            class="btn btn-primary mx-auto"
+            data-bs-toggle="modal"
+            data-bs-target="#carAdd"
+          >
+            Add new car
+          </button>
+        </div>
+        <div class="col-md-4"></div>
+      </nav>
     </div>
     <div class="container-fluid">
-        <div class="align center">
-            <h1>Customer info</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>User Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% customers.forEach(customer=> { %>
-                        <tr>
-                            <td>
-                                <%= customer.firstName%>
-                            </td>
-                            <td>
-                                <%= customer.lastName %>
-                            </td>
-                            <td>
-                                <%= customer.customerId %>
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
-        </div>
-        <div class="align center">
-            <h1>Car info</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Plate id</th>
-                        <th>Year</th>
-                        <th>Status</th>
-                        <th>Make</th>
-                        <th>Price/Day</th>
-                        <th>Top Speed (KM/Hr)</th>
-                        <th>Color</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% cars.forEach(car=> { %>
-                        <tr data-bs-toggle="modal" data-bs-target="#CarDeleteUpdate">
-                            <td>
-                                <%= car.plateId %>
-                            </td>
-                            <td>
-                                <%= car.year %>
-                            </td>
-                            <td>
-                                <%= car.status %>
-                            </td>
-                            <td>
-                                <%= car.make %>
-                            </td>
-                            <td>
-                                <%= car.pricePerDay %>
-                            </td>
-                            <td>
-                                <%= car.topSpeed_KMperH %>
-                            </td>
-                            <td>
-                                <%= car.color %>
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
-        </div>
-        <div class="align center">
-            <h1>Reservations</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Reservation ID</th>
-                        <th>Start </th>
-                        <th>End </th>
-                        <th>Price</th>
-                        <th>Customer ID</th>
-                        <th>Car plate</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <% reservations.forEach(reservation=> { %>
-                        <% console.log(reservation); %>
-                        <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
-                                <td>
-                                    <%= reservation.reservationId %>
-                                </td>
-                                <td>
-                                    <%= reservation.startDate %>
-                                </td>
-                                <td>
-                                    <%= reservation.endDate %>
-                                </td>
-                                <td><%= reservation.totalPrice %></td>
-                                <td>
-                                    <%= reservation.customerId %>
-                                </td>
-                                <td>
-                                    <%= reservation.plateId %>
-                                </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-            </table>
-        </div>
+      <div class="align center">
+        <h1>Customer info</h1>
+    
+        <table
+          id="customerInfoTable"
+          class="table table-striped table-hover table-bordered table-sm"
+          cellspacing="0"
+          width="100%"
+        >
+        <style>
+            table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}
+        </style>
+          <script>
+            $(document).ready(function () {
+              $("#customerInfoTable").DataTable();
+              $(".dataTables_length").addClass("bs-select");
+            });
+          </script>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>User Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% customers.forEach(customer=> { %>
+            <tr>
+              <td><%= customer.firstName%></td>
+              <td><%= customer.lastName %></td>
+              <td><%= customer.customerId %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="align center">
+        <h1>Car info</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Plate id</th>
+              <th>Year</th>
+              <th>Status</th>
+              <th>Make</th>
+              <th>Price/Day</th>
+              <th>Top Speed (KM/Hr)</th>
+              <th>Color</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cars.forEach(car=> { %>
+            <tr data-bs-toggle="modal" data-bs-target="#CarDeleteUpdate">
+              <td><%= car.plateId %></td>
+              <td><%= car.year %></td>
+              <td><%= car.status %></td>
+              <td><%= car.make %></td>
+              <td><%= car.pricePerDay %></td>
+              <td><%= car.topSpeed_KMperH %></td>
+              <td><%= car.color %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="align center">
+        <h1>Reservations</h1>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Reservation ID</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Price</th>
+              <th>Customer ID</th>
+              <th>Car plate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% reservations.forEach(reservation=> { %> <%
+            console.log(reservation); %>
+            <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
+              <td><%= reservation.reservationId %></td>
+              <td><%= reservation.startDate %></td>
+              <td><%= reservation.endDate %></td>
+              <td><%= reservation.totalPrice %></td>
+              <td><%= reservation.customerId %></td>
+              <td><%= reservation.plateId %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- Click on Modal Button -->
 
-
-
     <!-- Modal -->
-    <div class="modal fade" id="carAdd" tabindex="-1" aria-labelledby="carAddLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="carAddLabel">New car information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Plate ID</label>
-                            <input type="text" class="form-control" id="plate_id" name="plateID"
-                                placeholder="e.g: 5000" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Office location</label> <!-- country of orignin in DB-->
-                            <input type="text" class="form-control" id="office" name="Office"
-                                placeholder="e.g: Egypt" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">year</label>
-                            <input type="text" class="form-control" id="year" name="year" placeholder="e.g: 1999" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Status</label>
-                            <!--Availabe by default -->
-                            <input type="text" class="form-control" id="status" name="status"
-                                placeholder="default: Available" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Make</label>
-                            <input type="text" class="form-control" id="make" name="make" placeholder="e.g: Nissan" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" placeholder="e.g: Sunny" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Price/day</label>
-                            <input type="text" class="form-control" id="price_per_day" name="price_per_day"
-                                placeholder="e.g: 150 LE/day" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Top speed(km/hr)</label>
-                            <input type="text" class="form-control" id="top_Speed" name="top_Speed"
-                                placeholder="e.g: 250 km/hr" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" placeholder="e.g: Black" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Image(URL)</label>
-                            <input type="text" class="form-control" id="image" name="image"
-                                placeholder="e.g: shorturl.at/tBEFN" />
-                        </div>
-                        <div class="modal-footer d-block">
-                            <button type="submit" class="btn btn-success float-end">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="carAdd"
+      tabindex="-1"
+      aria-labelledby="carAddLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="carAddLabel">New car information</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Plate ID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="plate_id"
+                  name="plateID"
+                  placeholder="e.g: 5000"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Office location</label>
+                <!-- country of orignin in DB-->
+                <input
+                  type="text"
+                  class="form-control"
+                  id="office"
+                  name="Office"
+                  placeholder="e.g: Egypt"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">year</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="year"
+                  name="year"
+                  placeholder="e.g: 1999"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <!--Availabe by default -->
+                <input
+                  type="text"
+                  class="form-control"
+                  id="status"
+                  name="status"
+                  placeholder="default: Available"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Make</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="make"
+                  name="make"
+                  placeholder="e.g: Nissan"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Model</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="model"
+                  name="model"
+                  placeholder="e.g: Sunny"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Price/day</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="price_per_day"
+                  name="price_per_day"
+                  placeholder="e.g: 150 LE/day"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Top speed(km/hr)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="top_Speed"
+                  name="top_Speed"
+                  placeholder="e.g: 250 km/hr"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Color</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="color"
+                  name="color"
+                  placeholder="e.g: Black"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Image(URL)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  placeholder="e.g: shorturl.at/tBEFN"
+                />
+              </div>
+              <div class="modal-footer d-block">
+                <button type="submit" class="btn btn-success float-end">
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!--This form will appear when pressing on a table row-->
-    <div class="modal fade" id="CarDeleteUpdate" tabindex="-1" aria-labelledby="CarDel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="CarDel">Delete the car?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <!-- <div class="modal-footer d-block"> -->
-                        <button type="submit" class="btn btn-danger float-end">Delete</button>
-                        <!-- </div> -->
-                    </form>
-                </div>
-                <div class="modal-header">
-                    <h5 class="modal-title" id="CarDel">Update Car status</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Car status</label>
-                            <input type="text" class="form-control" id="car_update" name="car_update"
-                                placeholder="e.g: Available" />
-                        </div>
-                        <!-- <div class="modal-footer d-block"> -->
-                        <button type="submit" class="btn btn-warning float-end">Update</button>
-                        <!-- </div> -->
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="CarDeleteUpdate"
+      tabindex="-1"
+      aria-labelledby="CarDel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="CarDel">Delete the car?</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- <div class="modal-footer d-block"> -->
+              <button type="submit" class="btn btn-danger float-end">
+                Delete
+              </button>
+              <!-- </div> -->
+            </form>
+          </div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="CarDel">Update Car status</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Car status</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="car_update"
+                  name="car_update"
+                  placeholder="e.g: Available"
+                />
+              </div>
+              <!-- <div class="modal-footer d-block"> -->
+              <button type="submit" class="btn btn-warning float-end">
+                Update
+              </button>
+              <!-- </div> -->
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-
 
     <!--Reservation delete pop-up-->
-    <div class="modal fade" id="ReservationDeleteForm" tabindex="-1" aria-labelledby="DeleteRes" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="DeleteRes">Delete the reservation?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <!-- <div class="modal-footer d-block"> -->
-                        <button type="submit" class="btn btn-danger float-end">Delete</button>
-                        <!-- </div> -->
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="ReservationDeleteForm"
+      tabindex="-1"
+      aria-labelledby="DeleteRes"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="DeleteRes">Delete the reservation?</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- <div class="modal-footer d-block"> -->
+              <button type="submit" class="btn btn-danger float-end">
+                Delete
+              </button>
+              <!-- </div> -->
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 
-<script src="scripts/navbar.js"></script>
-
-
+  <script src="scripts/navbar.js"></script>
 </html>
