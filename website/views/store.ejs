@@ -41,9 +41,9 @@
         </nav>
     </div>
 
-    <div class="row gap-3 mt-2 ml-2">
+    <div class="row gap-3 mt-2 ml-2" onclick="clickedSomewhere()">
         <% cars.forEach(car=> { %>
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem;" data-plate-id="<%= car.plateId %>">
                 <img class="card-img-top" src=<%=car.image %> alt="Card image cap"
                 data-bs-toggle="modal" data-bs-target="#ReserveCar" onclick="reserveCar()">
                 <div class="card-body">
