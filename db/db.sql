@@ -16,14 +16,14 @@ foreign key(countryOfOrigin) references office(country)
 );
 
 create table IF NOT EXISTS reservation(
-reservedPlateId int not null,
+plateId int not null,
 customerId varchar(225) not null,
 reservationId int not null auto_increment,
 startDate datetime,
 endDate datetime,
 isPaid bit not null, 
 primary key (reservationId),
-foreign key (reservedPlateId) references car(plateId),
+foreign key (plateId) references car(plateId),
 foreign key (customerId) references customer(customerId)
 );
 
@@ -53,3 +53,9 @@ foreign key(adminId) references systemUser(userId)
 ); 
 
 SET FOREIGN_KEY_CHECKS=1;
+
+-- some views
+
+create view customer_reservation_car as
+select *, car.pricePerDay * (datediff(reservation.endDate, reservation.startDate) + 1) as totalPrice
+from customer natural join reservation natural join car;

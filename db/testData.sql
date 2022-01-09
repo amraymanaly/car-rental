@@ -18,5 +18,6 @@ insert into office (country) values
 
 insert into reservation values (3, CURRENT_DATE(), CURRENT_DATE(), CURRENT_DATE(), CURRENT_DATE(), 1);
 
+insert into `admin` values ('aloush');
 
 SET FOREIGN_KEY_CHECKS=1;
