@@ -87,7 +87,7 @@
                         <th>Price</th>
                         <th>Customer ID</th>
                         <th>Car plate</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -101,6 +101,118 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <!-- Click on Modal Button -->
+
+    <button type="button" class="btn btn-primary mx-auto d-block mt-5" data-bs-toggle="modal"
+        data-bs-target="#modalForm">
+        Add new car
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New car information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Plate ID</label>
+                            <input type="text" class="form-control" id="plate_id" name="plateID"
+                                placeholder="e.g: 5000" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Office location</label> <!-- country of orignin in DB-->
+                            <input type="text" class="form-control" id="office" name="Office"
+                                placeholder="e.g: Egypt" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">year</label>
+                            <input type="text" class="form-control" id="year" name="year" placeholder="e.g: 1999" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <!--Availabe by default -->
+                            <input type="text" class="form-control" id="status" name="status"
+                                placeholder="default: Available" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Make</label>
+                            <input type="text" class="form-control" id="make" name="make" placeholder="e.g: Nissan" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Model</label>
+                            <input type="text" class="form-control" id="model" name="model" placeholder="e.g: Sunny" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Price/day</label>
+                            <input type="text" class="form-control" id="price_per_day" name="price_per_day"
+                                placeholder="e.g: 150 LE/day" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Top speed(km/hr)</label>
+                            <input type="text" class="form-control" id="top_Speed" name="top_Speed"
+                                placeholder="e.g: 250 km/hr" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Color</label>
+                            <input type="text" class="form-control" id="color" name="color" placeholder="e.g: Black" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Image(URL)</label>
+                            <input type="text" class="form-control" id="image" name="image"
+                                placeholder="e.g: shorturl.at/tBEFN" />
+                        </div>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-warning float-end">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Click on Modal Button -->
+    <button type="button" class="btn btn-primary mx-auto d-block mt-5" data-bs-toggle="modal"
+        data-bs-target="#modalForm">
+       Delete a car
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bootstrap 5 Modal Form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Username" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Password" />
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" />
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <div class="modal-footer d-block">
+                            <p class="float-start">Not yet account <a href="#">Sign Up</a></p>
+                            <button type="submit" class="btn btn-warning float-end">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>
