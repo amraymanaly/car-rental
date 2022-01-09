@@ -20,7 +20,7 @@ async function enter(action) {
     const response = await resp.json();
     console.log('response:', response);
     if (response.enter) { // user may proceed
-        location.href = '/store';
+        location.href = response.admin ? '/adminPortal' : '/store';
     } else
         info.innerHTML = response.msg;
 }

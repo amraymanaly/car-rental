@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 
 // Begin!
 
-let currentUser = null;
-let status = null;
+// initializing global variables...
+let currentUser = {admin: false};
 
 async function checkDB(user) { // returns [<id found?>, <user if password matches>]
     // console.log('checking for', user);
@@ -53,35 +53,36 @@ app.post('/welcome', (req, res) => {
     // console.log('user now:', currentUser);
     console.log('request recieved', req.body);
     let user = req.body;
+    currentUser.admin = false;
     checkDB(user).then( indb => {
         if (req.body.action == 'login') {
             currentUser = indb[1];
             // console.log(indb);
+            msg = currentUser ? 'logged in' : 'Id and/or password is/are incorrect!';
             if (currentUser) {
-                status = 'old user';
-            } else {
-                status = 'Id and/or password is/are incorrect!';
+                db.query(`select * from admin where adminId = ${db.escape(currentUser.userId)};`)
+                .then(q => {
+                    currentUser.admin = q.length === 1;
+                    res.send({enter: true, admin: currentUser.admin});
+                });
+                return false;
             }
         } else { // register new user
             if (indb[0]) {
-                status = 'Id already registered!';
+                msg = 'Id already registered!';
                 currentUser = null;
             } else {
                 //FIXME: add user info
                 addUser(user);
                 currentUser = user;
-                status = 'new user';
+                msg = 'registered';
             }
         }
-
-        if (currentUser) {
-            console.log('result:', currentUser, status);
-            // res.send({resp: `Welcome ${currentUser.userId}!`});
-            // res.render('userPanel', {user: (currentUser ? currentUser.userId : null)});
-            // FIXME: make it userPanel
-            res.send({enter: true}); // user script may get /store
-        } else
-            res.send({enter: false, msg: status});
+        return true;
+    })
+    .then(a => {
+        if (!a) return;
+        res.send({enter: false, msg});
     });
 });
 
@@ -91,6 +92,10 @@ app.get('/customerHome', async (req, res) => {
 });
 
 app.get('/adminPortal', async (req, res) => {
+    if (!currentUser.admin) {
+        res.send('unauthorized access');
+        return;
+    }
     // admin, show everything
     res.render('adminPortal', {
         cars: await getAllCars(),
