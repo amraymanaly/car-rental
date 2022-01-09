@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <div class="container-fluid row">
-        <div class="col-md-3">
+    <div class="container-fluid">
+        <div class="align center">
             <h1>Customer info</h1>
             <table class="table table-hover">
                 <thead>
@@ -32,7 +32,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-5">
+        <div class="align center">
             <h1>Car info</h1>
             <table class="table table-hover">
                 <thead>
@@ -47,8 +47,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <% cars.forEach(car => { %>
+                    <% cars.forEach(car => { %>
+                        <tr>
                             <td><%= car.plateId %></td>
                             <td><%= car.year %></td>
                             <td><%= car.status %></td>
@@ -56,12 +56,12 @@
                             <td><%= car.pricePerDay %></td>
                             <td><%= car.topSpeed_KMperH %></td>
                             <td><%= car.color %></td>                            
+                        </tr>
                         <% }) %>    
-                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-4">
+        <div class="align center">
             <h1>Reservations</h1>
             <table class="table table-hover">
                 <thead>
@@ -87,7 +87,7 @@
                             <td><%= reservation.endDate %></td>
                             <td>placeholder</td> <!-- will be a view, a virtual column -->
                             <td><%= reservation.customerId %></td>
-                            <td><%= found.plateId %></td>                            
+                            <td><%= reservation.plateId %></td>                            
                         <% }) %>  
                     </tr>
                 </tbody>
