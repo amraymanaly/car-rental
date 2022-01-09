@@ -43,10 +43,17 @@ async function addUser(user) {
 }
 
 async function addNewCar(car){
-    console.log('Car insertion request');
-    await db.query(`insert into car (make,model,pricePerDay,status,year,topSpeed_KMperH,color,plateId,countryOfOrigin,image) values
-    (${db.escape(car.make)}, ${db.escape(car.model)}, ${db.escape(car.pricePerDay)}, ${db.escape(car.status)}, ${db.escape(car.year)}, ${db.escape(car.topSpeed_KMperH)},${db.escape(car.color)}, ${db.escape(car.plateId)}, ${db.escape(car.plateId)}, ${db.escape(car.countryOfOrigin)}, ${db.escape(car.image)})`);
-    return false;
+    let res;
+    try {
+        await db.query(`insert into car (make,model,pricePerDay,status,year,topSpeed_KMperH,color,plateId,countryOfOrigin,image) values
+        (${db.escape(car.make)}, ${db.escape(car.model)}, ${db.escape(car.pricePerDay)},
+        ${db.escape(car.status)}, ${db.escape(car.year)}, ${db.escape(car.topSpeed_KMperH)},
+        ${db.escape(car.color)}, ${db.escape(car.plateId)}, ${db.escape(car.countryOfOrigin)}, ${db.escape(car.image)})`);
+    } catch (e) {
+        res = e.message;
+    }
+
+    return res;
 }
 
 // Setup server routes
@@ -88,10 +95,14 @@ app.post('/register', (req, res) => {
 
 app.post('/addCar', (req, res) => {
     let car = req.body;
-    console.log('recieved registration request:', car );
-    let add = addNewCar(car);
-    
-    return res.send({enter: true, msg: add});
+    console.log('recieved car registration request:', car);
+
+    let add = await addNewCar(car);
+
+    if (add)
+        return res.send({success: false, msg: add});
+
+    return res.send({success: true});
 });
 
 
@@ -120,8 +131,6 @@ app.get('/store', async (req, res) => {
 app.get('/logout', (req, res) => {
     currentUser = null;
 });
-
-// some common queries, FIXME: change them to views later...
 
 function getAllCars() {
     return db.query('select * from car;');

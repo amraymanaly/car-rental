@@ -19,7 +19,9 @@ async function postserver(action, form) {
     return d.json();
 }
 async function ay() {
-    console.log('ay 7aga');
     let resp = await postserver('addCar', carAddForm);
-    console.log('got:', resp);
+    if (resp.success)
+        console.log('Car added'); // TODO: inform user
+    else
+        console.log('Failed to add car:', resp.msg);
 }
