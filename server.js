@@ -95,7 +95,7 @@ app.get('/adminPortal', async (req, res) => {
     res.render('adminPortal', {
         cars: await getAllCars(),
         customers: await getAllCustomers(),
-        reservation: await getAllReservations()
+        reservations: await getAllReservations()
     });
 });
 
