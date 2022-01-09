@@ -16,6 +16,7 @@ app.set('view engine', 'ejs');
 
 // Housekeeping
 const bodyParser = require('body-parser');
+const res = require('express/lib/response');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -84,6 +85,10 @@ app.post('/welcome', (req, res) => {
         if (!a) return;
         res.send({enter: false, msg});
     });
+});
+
+app.get("/logout",(req,res)=>{
+res.redirect("/");
 });
 
 app.get('/customerHome', async (req, res) => {
