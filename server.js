@@ -97,12 +97,12 @@ app.post('/addCar', (req, res) => {
     let car = req.body;
     console.log('recieved car registration request:', car);
 
-    let add = await addNewCar(car);
-
-    if (add)
-        return res.send({success: false, msg: add});
-
-    return res.send({success: true});
+    addNewCar(car).then(add => {
+        if (add)
+            res.send({success: false, msg: add});
+        else
+            res.send({success: true});
+    });
 });
 
 
