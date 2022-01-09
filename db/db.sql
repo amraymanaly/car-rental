@@ -59,3 +59,7 @@ SET FOREIGN_KEY_CHECKS=1;
 create view customer_reservation_car as
 select *, car.pricePerDay * (datediff(reservation.endDate, reservation.startDate) + 1) as totalPrice
 from customer natural join reservation natural join car;
+
+
+select car.pricePerDay * (datediff(MIN(reservation.endDate,enteredEndDate),MAX(reservation.startDate,enteredStartDate)) + 1) as totalPrice
+from customer_reservation_car;
