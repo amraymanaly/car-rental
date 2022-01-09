@@ -11,8 +11,8 @@ const db = require("./db/db");
 const md5 = require('md5');
 
 // Set EJS as templating engine
-// app.set('views', path.join(__dirname, 'website', 'home'));
-// app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'website', 'views'));
+app.set('view engine', 'ejs');
 
 // Housekeeping
 const bodyParser = require('body-parser');
@@ -48,10 +48,6 @@ function addUser(user) {
 
 app.use('/', express.static(path.join(__dirname, 'website')));
 
-// app.get('/',(req,res)=>{
-//     res.sendFile('userHome.html');
-// })
-
 // for logging in and registeration
 app.post('/welcome', (req, res) => {
     // console.log('user now:', currentUser);
@@ -80,34 +76,54 @@ app.post('/welcome', (req, res) => {
 
         if (currentUser) {
             console.log('result:', currentUser, status);
-            res.send({resp: `Welcome ${currentUser.userId}!`});
-            // res.render('index', {user: (currentUser ? currentUser.userId : null)});
+            // res.send({resp: `Welcome ${currentUser.userId}!`});
+            // res.render('userPanel', {user: (currentUser ? currentUser.userId : null)});
+            // FIXME: make it userPanel
+            res.send({enter: true}); // user script may get /store
         } else
-            res.send({resp: status});
+            res.send({enter: false, msg: status});
     });
 });
 
-app.post('/customerHome', async (req, res) => {
+app.get('/customerHome', async (req, res) => {
     // customer, show own reservations
-    return await db.query(`select * from reservation where customerId=${currentUser.userId}`);
+    res.render('customerReservations', {reservations: await getAllUserReservations()});
 });
 
-app.post('/adminHome', async (req, res) => {
+app.get('/adminPortal', async (req, res) => {
     // admin, show everything
-    return {
-        cars: await db.query('select * from car;'),
-        customers: await db.query('select * from customer;'),
-        reservation: await db.query('select * from reservation;')
-    };
+    res.render('adminPortal', {
+        cars: await getAllCars(),
+        customers: await getAllCustomers(),
+        reservation: await getAllReservations()
+    });
 });
 
 app.post('/searchForACar', async (req, res) => {
     // use search paramters to select cars
 });
 
-app.post('/store', async (req, res) => {
-    return await db.query('select * from car;');
+app.get('/store', async (req, res) => {
+    res.render('store', {cars: await getAllCars()});
 });
+
+// some common queries, FIXME: change them to views later...
+
+function getAllCars() {
+    return db.query('select * from car;');
+}
+
+function getAllCustomers() {
+    return db.query('select * from customer;');
+}
+
+function getAllReservations() {
+    return db.query('select * from reservation;');
+}
+
+function getAllUserReservations() {
+    return db.query(`select * from reservation where customerId = ${db.escape(currentUser.userId)};`);
+}
 
 // Start Listening
 const port = 3000;
