@@ -42,6 +42,13 @@ async function addUser(user) {
     return false;
 }
 
+async function addNewCar(car){
+    console.log('Car insertion request');
+    await db.query(`insert into car (make,model,pricePerDay,status,year,topSpeed_KMperH,color,plateId,countryOfOrigin,image) values
+    (${db.escape(car.make)}, ${db.escape(car.model)}, ${db.escape(car.pricePerDay)}, ${db.escape(car.status)}, ${db.escape(car.year)}, ${db.escape(car.topSpeed_KMperH)},${db.escape(car.color)}, ${db.escape(car.plateId)}, ${db.escape(car.plateId)}, ${db.escape(car.countryOfOrigin)}, ${db.escape(car.image)})`);
+    return false;
+}
+
 // Setup server routes
 
 app.use('/', express.static(path.join(__dirname, 'website')));
@@ -78,6 +85,16 @@ app.post('/register', (req, res) => {
         res.send({enter: true});
     });
 });
+
+app.post('/addCar', (req, res) => {
+    let car = req.body;
+    console.log('recieved registration request:', car );
+    let add = addNewCar(car);
+    
+    return res.send({enter: true, msg: add});
+});
+
+
 
 app.get('/customerHome', async (req, res) => {
     // customer, show own reservations
