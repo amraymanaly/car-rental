@@ -22,7 +22,6 @@
                 </thead>
                 <tbody>
                     <% customers.forEach(customer=> { %>
-                        <% console.log('customer:', customer.firstName); %>
                             <tr>
                                 <td>
                                     <%= customer.firstName%>
@@ -96,12 +95,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% console.log('hello') %>
                     <% reservations.forEach(reservation=> { %>
+                        <% console.log(reservation); %>
                         <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
-                            <% found=undefined; cars.forEach(car=> {
-                                if (car.plateId === reservation.reservedPlateId)
-                                found = car
-                                }); %>
                                 <td>
                                     <%= reservation.reservationId %>
                                 </td>
@@ -111,7 +108,7 @@
                                 <td>
                                     <%= reservation.endDate %>
                                 </td>
-                                <td>placeholder</td> <!-- will be a view, a virtual column -->
+                                <td><%= reservation.totalPrice %></td>
                                 <td>
                                     <%= reservation.customerId %>
                                 </td>
@@ -207,9 +204,9 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="modal-footer d-block">
+                        <!-- <div class="modal-footer d-block"> -->
                             <button type="submit" class="btn btn-danger float-end">Delete</button>
-                        </div>
+                        <!-- </div> -->
                     </form>
                 </div>
                 <div class="modal-header">
@@ -222,9 +219,9 @@
                             <input type="text" class="form-control" id="car_update" name="car_update"
                                 placeholder="e.g: Available" />
                         </div>
-                        <div class="modal-footer d-block">
+                        <!-- <div class="modal-footer d-block"> -->
                             <button type="submit" class="btn btn-warning float-end">Update</button>
-                        </div>
+                        <!-- </div> -->
                     </form>
                 </div>
             </div>
@@ -242,9 +239,9 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="modal-footer d-block">
+                        <!-- <div class="modal-footer d-block"> -->
                             <button type="submit" class="btn btn-danger float-end">Delete</button>
-                        </div>
+                        <!-- </div> -->
                     </form>
                 </div>
             </div>
