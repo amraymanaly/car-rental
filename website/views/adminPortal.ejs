@@ -21,11 +21,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Khaled</td>
-                        <td>Gamal</td>
-                        <td>khaled </td>
-                    </tr>
+                    <% customers.forEach(customer => { %>
+                        <% console.log('customer:', customer.firstName); %>
+                        <tr>
+                        <td><%= customer.firstName%></td>
+                        <td><%= customer.lastName %></td>
+                        <td><%= customer.customerId %></td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
@@ -44,15 +47,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  data-bs-toggle="modal"
-                    data-bs-target="#modalForm2">
-                        <td>1234</td>
-                        <td>2020</td>
-                        <td>Available</td>
-                        <td>volvo</td>
-                        <td>150.2</td>
-                        <td>300</td>
-                        <td>Black</td>
+                    <tr>
+                        <% cars.forEach(car => { %>
+                            <td><%= car.plateId %></td>
+                            <td><%= car.year %></td>
+                            <td><%= car.status %></td>
+                            <td><%= car.make %></td>
+                            <td><%= car.pricePerDay %></td>
+                            <td><%= car.topSpeed_KMperH %></td>
+                            <td><%= car.color %></td>                            
+                        <% }) %>    
                     </tr>
                 </tbody>
             </table>
@@ -73,12 +77,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>1/2/2021</td>
-                        <td>20/2/2021</td>
-                        <td>500</td>
-                        <td>Khaled</td>
-                        <td>1234</td>
+                        <% reservations.forEach(reservation => { %>
+                            <% found = undefined; cars.forEach(car => {
+                                if (car.plateId === reservation.reservedPlateId)
+                                    found = car
+                            }); %>
+                            <td><%= reservation.reservationId %></td>
+                            <td><%= reservation.startDate %></td>
+                            <td><%= reservation.endDate %></td>
+                            <td>placeholder</td> <!-- will be a view, a virtual column -->
+                            <td><%= reservation.customerId %></td>
+                            <td><%= found.plateId %></td>                            
+                        <% }) %>  
                     </tr>
                 </tbody>
             </table>
@@ -190,9 +200,6 @@
         </div>
     </div>
 </body>
-
-
-
 
 
 </html>
