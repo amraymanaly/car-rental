@@ -44,12 +44,12 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-              <form action="/welcome" method="post" name="auth" onsubmit="return validate();">
+              <form name="login">
                 <h1 id="info"></h1>
                 <h1>Login</h1>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                  <input type="text" name="username" class="form-control" placeholder="Username" />
+                  <input type="text" name="userId" class="form-control" placeholder="Username" />
                 </div>
                 <!-- Password input -->
                 <div class="form-outline mb-4">
@@ -58,9 +58,9 @@
 
                 <div class="row mb-4">
                   <div class="col  gap-3 d-flex justify-content-center">
-                    <button type="button" id="login" class="btn btn-primary btn-block mb-4">Login</button>
-                    <button type="button" id="register" class="btn btn-primary btn-block mb-4" data-bs-toggle="modal"
-                    data-bs-target="#Register">Register</button>
+                    <button type="button" id="login" class="btn btn-primary btn-block mb-4" onclick="tryLogin()">Login</button>
+                    <button type="button" id="register" class="btn btn-primary btn-block mb-4"
+                    data-bs-toggle="modal" data-bs-target="#Register">Register</button>
                   </div>
                 </div>
 
@@ -82,25 +82,25 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form name="register">
             <div class="mb-3">
               <label class="form-label">First name:</label>
-              <input type="text" class="form-control" name="firstNameInput" placeholder="First name" />
+              <input type="text" class="form-control" name="firstName" placeholder="First name" />
             </div>
             <div class="mb-3">
               <label class="form-label">Last name:</label>
-              <input type="text" class="form-control" name="lastNameInput" placeholder="Last name" />
+              <input type="text" class="form-control" name="lastName" placeholder="Last name" />
             </div>
             <div class="mb-3">
               <label class="form-label">username:</label>
-              <input type="text" class="form-control"  name="usernameInput" placeholder="username" />
+              <input type="text" class="form-control"  name="userId" placeholder="username" />
             </div>
             <div class="mb-3">
               <label class="form-label">password:</label>
               <input type="password" class="form-control"  name="password" placeholder="password" />
             </div>
             <div class="modal-footer d-block">
-              <button type="submit" class="btn btn-success float-end">Register</button>
+              <button type="button" class="btn btn-success float-end" onclick="tryRegister()">Register</button>
             </div>
           </form>
         </div>
