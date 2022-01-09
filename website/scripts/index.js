@@ -17,7 +17,12 @@ async function enter(action) {
         })
     });
 
-    info.innerHTML = (await resp.json()).resp;
+    const response = await resp.json();
+    console.log('response:', response);
+    if (response.enter) { // user may proceed
+        location.href = '/store';
+    } else
+        info.innerHTML = response.msg;
 }
 
 function login() {

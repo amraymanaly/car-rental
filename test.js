@@ -7,10 +7,12 @@ const md5 = require('md5');
 
 
 (async function() {
-    const rest = await db.query('select * from systemUser;');
-    console.log(rest);
+    // const rest = await db.query('select * from systemUser;');
+    // console.log(rest);
 
-    // await db.query('update systemUser set `password` = ' + db.escape(md5('amr')));
+    const q = `insert into systemUser values ('amr', ${db.escape(md5('amr'))});`;
+    console.log('query:', q);
+    await db.query(q);
     
 
 })();
