@@ -123,11 +123,11 @@ function getAllCustomers() {
 }
 
 function getAllReservations() {
-    return db.query('select * from reservation;');
+    return db.query('select * from customer_reservation_car;');
 }
 
 function getAllUserReservations() {
-    return db.query(`select * from reservation where customerId = ${db.escape(currentUser.userId)};`);
+    return db.query(`select * from customer_reservation_car where customerId = ${db.escape(currentUser.userId)};`);
 }
 
 // Start Listening

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Admin</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="align center">
+        <div class="align center">
+            <h1>Reservations</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Reservation ID</th>
+                        <th>Start </th>
+                        <th>End </th>
+                        <th>Price</th>
+                        <th>Car plate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% reservations.forEach(reservation => { %>
+                            <% found = undefined; cars.forEach(car => {
+                                if (car.plateId === reservation.reservedPlateId)
+                                    found = car
+                            }); %>
+                            <td><%= reservation.reservationId %></td>
+                            <td><%= reservation.startDate %></td>
+                            <td><%= reservation.endDate %></td>
+                            <td>placeholder</td> <!-- will be a view, a virtual column -->
+                            <td><%= reservation.plateId %></td>                            
+                        <% }) %>  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--This form will appear when pressing on a table row-->
+    <div class="modal fade" id="modalForm2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete the car?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-danger float-end">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Car status</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Car status</label>
+                            <input type="text" class="form-control" id="car_update" name="car_update"
+                                placeholder="e.g: Available" />
+                        </div>
+                        <div class="modal-footer d-block">
+                            <button type="submit" class="btn btn-warning float-end">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
