@@ -1,4 +1,5 @@
 const carAddForm = document.forms['addCar'];
+let clicked;
 
 async function postserver(action, form) {
 
@@ -25,3 +26,7 @@ async function ay() {
     else
         console.log('Failed to add car:', resp.msg);
 }
+
+document.getElementById('tbbb').addEventListener('click', (evt) => {
+    clicked = evt.target;
+});
