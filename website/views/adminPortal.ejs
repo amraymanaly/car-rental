@@ -48,7 +48,8 @@
                 </thead>
                 <tbody>
                     <% cars.forEach(car => { %>
-                        <tr>
+                        <tr data-bs-toggle="modal"
+                        data-bs-target="#modalForm2">
                             <td><%= car.plateId %></td>
                             <td><%= car.year %></td>
                             <td><%= car.status %></td>
