@@ -19,16 +19,14 @@
                 <button type="button" class="btn btn-primary mx-auto " data-bs-toggle="modal" data-bs-target="#carAdd">
                     Add new car
                 </button>
-                <button type="button" class="btn btn-primary mx-auto " data-bs-toggle="modal" data-bs-target="#reports">
-                    Reports
-                </button>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <input type="text" class="form-control" id="searchInput" placeholder="Search.." name="search">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                    <button type="button" class="btn btn-primary mx-auto " data-bs-toggle="modal" data-bs-target="#reports">
+                        Reports
+                    </button>                </div>
             </div>
         </nav>
     </div>
@@ -119,7 +117,7 @@
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="resTable">
                     <% reservations.forEach(reservation=> { %>
                         <tr data-bs-toggle="modal" data-bs-target="#ReservationDeleteForm">
                             <td>
@@ -128,10 +126,14 @@
                                 </p>
                             </td>
                             <td>
+                                <p class="startDate">
                                 <%= reservation.startDate %>
+                                </p>
                             </td>
                             <td>
+                                <p class="endDate">
                                 <%= reservation.endDate %>
+                                </p>
                             </td>
                             <td>
                                 <%= reservation.totalPrice %>
@@ -281,15 +283,15 @@
                 <div class="modal-body">
                     <form name="resForm">
                         <div class="mb-3">
-                            <label class="form-label">Pick-up date</label>
+                            <label class="form-label">Start date</label>
                             <input type="date" class="form-control" id="resStart" name="resStart">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Return date</label>
+                            <label class="form-label">End date</label>
                             <input type="date" class="form-control" id="resRet" name="resRet">
                         </div>
                         <div class="modal-footer d-block">
-                            <button type="button" class="btn btn-success float-end" onclick="reserve()">Report</button>
+                            <button type="button" class="btn btn-success float-end" onclick="report()">Report</button>
                         </div>
                     </form>
                 </div>

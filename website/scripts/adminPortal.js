@@ -74,3 +74,17 @@ function updateStatus() {
 
     $('#btnCloseDeleteCar').click();
 }
+
+function report() {
+    let ff = document.forms['resForm'];
+    let start = new Date(ff['resStart'].value);
+    let end = new Date(ff['resRet'].value);
+
+    $('#resTable tr').filter(function() {
+        let s = new Date($($('.startDate', this)[0]).text());
+        let e = new Date($($('.endDate', this)[0]).text());
+        $(this).toggle(d >= start && e <= end);
+    });
+
+    $('#closeRes').click();
+}
