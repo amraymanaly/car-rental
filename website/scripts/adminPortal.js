@@ -83,7 +83,7 @@ function report() {
     $('#resTable tr').filter(function() {
         let s = new Date($($('.startDate', this)[0]).text());
         let e = new Date($($('.endDate', this)[0]).text());
-        $(this).toggle(d >= start && e <= end);
+        $(this).toggle(s >= start && e <= end);
     });
 
     $('#closeRes').click();
