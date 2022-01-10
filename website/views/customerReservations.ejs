@@ -41,8 +41,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <% reservations.forEach(reservation=> { %>
+                        <% reservations.forEach(reservation=> { %>
+                            <tr>
                                 <% console.log(reservation); %>
                                     <td>
                                         <%= reservation.reservationId %>
@@ -57,8 +57,8 @@
                                     <td>
                                         <%= reservation.plateId %>
                                     </td>
+                                </tr>
                                     <% }) %>
-                        </tr>
                     </tbody>
                 </table>
             </div>
