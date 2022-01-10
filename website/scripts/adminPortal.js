@@ -1,4 +1,5 @@
 const carAddForm = document.forms['addCar'];
+let clicked;
 
 async function postserver(action, form) {
 
@@ -19,7 +20,57 @@ async function postserver(action, form) {
     return d.json();
 }
 async function ay() {
-    console.log('ay 7aga');
     let resp = await postserver('addCar', carAddForm);
-    console.log('got:', resp);
+    if (resp.success)
+        console.log('Car added'); // TODO: inform user
+    else
+        console.log('Failed to add car:', resp.msg);
+    
+    $('#btnCloseCreateCar').click();
+}
+
+for (let table of document.getElementsByTagName('table'))
+    table.addEventListener('click', (evt) => {
+        clicked = evt.target.parentElement;
+    });
+
+function deleteCar() {
+    fetch('/deleteCar', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('plateId')[0].textContent})
+    });
+
+    $('#btnCloseDeleteCar').click();
+}
+
+function deleteReservation() {
+    console.log('in here');
+    fetch('/deleteReservation', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('reservationId')[0].textContent})
+    });
+
+    $('#btnCloseDeleteReservation').click();
+}
+
+function updateStatus() {
+    fetch('/updateCarStatus', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: clicked.getElementsByClassName('plateId')[0].textContent,
+        status: document.forms['what']['car_update'].value})
+    });
+
+    $('#btnCloseDeleteCar').click();
 }

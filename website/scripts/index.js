@@ -30,11 +30,11 @@ async function tryLogin() {
 
 async function tryRegister() {
     let resp = await tellServer('register', registerForm);
-    console.log('got:', resp);
+    // console.log('got:', resp);
     if (resp.enter)
         location.href = '/customerHome';
     else {
-        //TODO: toggle popup window
         info.innerHTML = resp.msg;
+        document.getElementById('closeRegistration').click();
     }
 }
