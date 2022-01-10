@@ -55,6 +55,17 @@ async function addNewCar(car){
 
     return res;
 }
+async function reserve(reservation){
+    let res;
+    try {
+        await db.query(`insert into reservation(plateId,customerId,startDate,endDate,isPaid) values
+        (${db.escape(reservation.plateId)},${db.escape(currentUser.userId)}, ${db.escape(reservation.startDate)},${db.escape(reservation.endDate)}, ${db.escape(0)})`);
+    } catch (e) {
+        res = e.message;
+    }
+
+    return res;
+}
 
 // Setup server routes
 
@@ -105,6 +116,18 @@ app.post('/addCar', (req, res) => {
     });
 });
 
+app.post('/reserve', (req, res) => {
+    let resDetails = req.body;
+    console.log('recieved car registration request:', resDetails);
+
+    reserve(resDetails).then(add => {
+        if (add)
+            res.send({success: false, msg: add});
+        else
+            res.send({success: true});
+    });
+});
+
 app.post('/deleteCar', (req, res) => {
     db.query(`delete from car where plateId = ${db.escape(req.body.id)};`);
 });
@@ -123,6 +146,7 @@ app.get('/customerHome', async (req, res) => {
     // customer, show own reservations
     res.render('customerReservations', {reservations: await getAllUserReservations()});
 });
+
 
 app.get('/adminPortal', async (req, res) => {
     if (!currentUser.admin)
